@@ -1,0 +1,15 @@
+I noticed some people pulling this old code. There are some issues.
+
+It uses <time.h> to seed rand()
+
+It is designed to be called with shell, with va_arg and piping output, or dropping a text file/overwrite.
+
+The issue: To avoid the same output being produced ie too many recalls per second, creating sets of tests the same,
+there is rs = 7, as an off set, and 7877 hard coded. 
+
+static int rs = 7;
+rs = rs + 7877;
+
+<<<<<<<<<<[ However! ]>>>>>>>>>>>
+
+if you shell call this EXE 7 seconds later, or 7870 secs(2 Hours : 11 Minutes : 10 Seconds) later, it will produce the same output!
